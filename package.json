@@ -1,0 +1,31 @@
+{
+  "name": "teste-backend-nodejs",
+  "version": "1.0.0",
+  "description": "Seu desafio será desenvolver um serviço de denúncias e, como parte dele, veremos como você estrutura as camadas de aplicação, chamadas externas, variáveis de ambiente, cache, testes unitários, logs e documentação.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikoloiosifovich/teste-backend-nodejs.git"
+  },
+  "keywords": [],
+  "author": "Vieira Neto AKA Nikölo Iosifovich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikoloiosifovich/teste-backend-nodejs/issues"
+  },
+  "homepage": "https://github.com/nikoloiosifovich/teste-backend-nodejs#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nunjucks": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
