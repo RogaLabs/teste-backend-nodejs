@@ -1,5 +1,5 @@
 node_modules
 
-database
+statics_for_tests
 
 .env
