@@ -20,6 +20,7 @@ nunjucks.configure(__dirname + "/views", {
   noCache: true, // 👁 I'll set this to false after dev
 });
 
+server.use(express.json());
 server.use(routes);
 
 server.listen(3333);
