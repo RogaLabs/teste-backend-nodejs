@@ -3,3 +3,4 @@ node_modules
 statics_for_tests
 
 .env
+*.sqlite
