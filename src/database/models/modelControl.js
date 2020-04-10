@@ -1,4 +1,4 @@
-const connection = require("../database/connection");
+const connection = require("../connection");
 
 const newUser = require("./newUser");
 const newIncident = require("./newIncident");
@@ -16,6 +16,8 @@ const modelControl = async (res) => {
   } else {
     await newUser(res);
   }
+
+  return res.body;
 };
 
 module.exports = modelControl;

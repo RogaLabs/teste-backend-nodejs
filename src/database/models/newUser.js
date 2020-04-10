@@ -1,4 +1,4 @@
-const connection = require("../database/connection");
+const connection = require("../connection");
 const newIncident = require("./newIncident");
 
 const newUser = async (res) => {
@@ -20,6 +20,8 @@ const newUser = async (res) => {
   });
 
   await newIncident(res, id);
+
+  res.body["data"].id = id;
 };
 
 module.exports = newUser;

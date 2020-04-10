@@ -1,4 +1,4 @@
-const connection = require("../database/connection");
+const connection = require("../connection");
 
 const newIncident = async (res, id) => {
   const { denuncia } = res.body["data"];
@@ -12,6 +12,7 @@ const newIncident = async (res, id) => {
       updated_at: connection.fn.now(),
     })
     .then(console.log(`NOVA DENUNCIA <- USER_ID: ${id}`));
+  res.body["data"].id = id;
 };
 
 module.exports = newIncident;
