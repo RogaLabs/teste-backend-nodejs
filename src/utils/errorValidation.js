@@ -1,5 +1,10 @@
 const error = (res) => {
-  if (res.body == 400) {
+  if (res.body == 401) {
+    return {
+      message: "Não autenticado, informe dados válidos",
+      code: "00",
+    };
+  } else if (res.body == 400) {
     return {
       message: "Requisição inválida",
       code: "01",
