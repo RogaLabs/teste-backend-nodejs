@@ -1,85 +1,62 @@
 const express = require("express");
+const axios = require("axios").default;
 
-// 👁 Only for simulate localy geoApi axios promises
-const {
-  locations: locGood,
-} = require("./statics_for_tests/res_geoapi.json").results[0];
-
-const {
-  locations: locBad,
-} = require("./statics_for_tests/res_geoapi_error.json").results[0];
-
-const {
-  latLng: goodGeo,
-} = require("./statics_for_tests/res_geoapi.json").results[0].providedLocation;
-const {
-  latLng: badGeo,
-} = require("./statics_for_tests/res_geoapi_error.json").results[0].providedLocation;
+const IncidentController = require("./controllers/IncidentController");
+require("dotenv").config();
 
 const routes = express.Router();
 
-// 👁 MIDLEWARE
-// lograd cidade     estado     pais       cep
-// street adminArea5 adminArea3 adminArea1 postalCode
-// REMEMBER TO SET THIS AS ASYNC/AWAIT AXIOS RES
-routes.use(function timeLog(req, res, next) {
+routes.use(async (req, res, next) => {
   const { latitude: lat, longitude: lng } = req.body;
-  let data = req.body;
+  const data = req.body;
 
-  // 👁 I make this for simulate geoApi response, and set my request body
-  // to my router contoller
-  if (lat == goodGeo.lat && lng == goodGeo.lng) {
-    data.endereco = {
-      logradouro: locGood[0].street,
-      cidade: locGood[0].adminArea5,
-      estado: locGood[0].adminArea3,
-      pais: locGood[0].adminArea1,
-      cep: locGood[0].postalCode,
-    };
+  const errors = await axios
+    .get("http://www.mapquestapi.com/geocoding/v1/reverse", {
+      params: {
+        key: `${process.env.API_KEY}`,
+        location: `${lat},${lng}`,
+        outFormat: "json",
+        thumbMaps: "false",
+      },
+    })
+    .then(function (response) {
+      const { statuscode } = response.data.info;
+      const location = response.data.results[0].locations[0];
+      const isStreet =
+        location != undefined && location.geocodeQuality == "STREET"
+          ? true
+          : false;
 
-    req.body = { data: data };
-  } else if (lat == badGeo.lat && lng == badGeo.lng) {
-    const { postalCode: zip } = locBad[0];
-    const { geocodeQuality: place } = locBad[0];
-
-    // 👁 Error test, variables
-    // req.body = "400";
-    // err = "400";
-    err = "";
-
-    if (req.body == err) {
-      req.body = {
-        400: {
-          message: "Request invalido",
-          code: "01",
-        },
-      };
-    } else if (zip == "" && place != "STREET") {
-      req.body = {
-        404: {
-          message: "Endereço não encontrado para essa localidade.",
-          code: "02",
-        },
-      };
-    }
-  }
-
-  //console.log(req.body);
+      if (statuscode < 400 && location != undefined && isStreet) {
+        data.endereco = {
+          logradouro: location.street,
+          bairro: location.adminArea6,
+          cidade: location.adminArea5,
+          estado: location.adminArea3,
+          pais: location.adminArea1,
+          cep: location.postalCode,
+        };
+        req.body = { data: data };
+        return req.body;
+      } else if (statuscode >= 400) {
+        return (response.status = 400);
+      } else if (location == undefined) {
+        return (response.status = 404);
+      } else if (!isStreet) {
+        return (response.status = 404);
+      } else {
+        return response;
+      }
+    })
+    .catch(function (error) {
+      if (error.response.status >= 400) {
+        return error.response.status;
+      }
+    });
+  res.body = errors;
   next();
 });
 
-routes.post("/v1/denuncias", (req, res) => {
-  const data = req.body;
-  const statusCode = JSON.parse(Object.getOwnPropertyNames(data));
-
-  if ([400, 404].includes(statusCode)) {
-    const error = new Object();
-    error.error = data[statusCode];
-
-    res.status(statusCode).json(error);
-  } else {
-    res.json(data);
-  }
-});
+routes.post("/v1/denuncias", IncidentController.create);
 
 module.exports = routes;
