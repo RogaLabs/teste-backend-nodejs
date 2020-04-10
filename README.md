@@ -19,8 +19,8 @@ Implementar uma API REST `[POST] /v1/denuncias` para inserir novas denúncias.
 
 Para rodar esta aplicação devemos criar uma arquivo **.env** na raiz do projeto com as seguintes variáveis de ambiente:
 
-API_KEY=**aqui você insere sua api_key do [mapquest](https://developer.mapquest.com/documentation/geocoding-api/)**
-PORT=**caso queira usar outra (default:3333)**
+- API_KEY=**aqui você insere sua api_key do [mapquest](https://developer.mapquest.com/documentation/geocoding-api/)**
+- PORT=**caso queira usar outra (default:3333)**
 
 ### Criando as tabelas do banco de dados
 
@@ -34,9 +34,9 @@ mais em: [knex](http://knexjs.org/)
 
 ### Rodando o projeto
 
-Dev: `npm run dev`
-Prod: `npm start`
-Test: não implementado.
+- Dev: `npm run dev`
+- Prod: `npm start`
+- Test: não implementado.
 
 ### Estrutura
 
@@ -56,6 +56,6 @@ Refatorei boa parte das funcionalidades na tentativa de me aproximar o máximo p
 - [x] sqlite3
 - [x] cors
 
-Fiz dentro das minhas limitações, talvez não seja a melhor solução mas está funcional isso eu garanto.
+Fiz dentro das minhas limitações (maratona de 5 dias e muitas doses de expresso), talvez não seja a melhor solução mas está funcional.
 
 # That's all folks ;D
