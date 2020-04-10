@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
       },
       cpf_number: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       created_at: {
