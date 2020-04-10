@@ -5,15 +5,16 @@ exports.up = function (knex) {
         table.increments(); // 👁 I prefer use autoincrement pk
 
         table.string("lat").notNullable();
-        table.string("lon").notNullable();
+        table.string("lng").notNullable();
 
         table.string("name").notNullable();
         table.string("cpf").notNullable();
-        table.string("place").notNullable();
+        table.string("street").notNullable();
+        table.string("district").notNullable();
         table.string("city").notNullable();
-        table.string("zip").notNullable();
         table.string("uf", 2).notNullable();
-        table.string("country").notNullable();
+        table.string("country", 2).notNullable();
+        table.string("zip").notNullable();
 
         table.timestamps();
       });
