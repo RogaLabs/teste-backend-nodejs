@@ -1,5 +1,5 @@
 const error = require("../utils/errorValidation");
-const modelControl = require("../models/modelControl");
+const modelControl = require("../database/models/modelControl");
 
 module.exports = {
   async create(req, res) {
@@ -8,9 +8,7 @@ module.exports = {
     if (typeof res.body == "number") {
       res.status(res.body).json({ error: err });
     } else {
-      await modelControl(res);
-
-      const data = res.body;
+      const data = await modelControl(res);
       res.json(data);
     }
   },
