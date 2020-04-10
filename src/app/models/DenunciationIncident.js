@@ -11,20 +11,21 @@ class DenunciationIncident extends Model {
         sequelize,
       }
     );
+    return this;
   }
 
   static associate(models) {
     this.belongsTo(models.User, {
       foreignKey: 'denunciant',
-      as: 'denunciant',
+      as: 'denunciante',
     });
     this.belongsTo(models.Incident, {
       foreignKey: 'incident',
-      as: 'incident',
+      as: 'denuncia',
     });
-    this.belongsTo(models.address, {
+    this.belongsTo(models.Address, {
       foreignKey: 'address',
-      as: 'address',
+      as: 'endereco',
     });
   }
 }

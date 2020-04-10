@@ -11,6 +11,7 @@ class Incident extends Model {
         sequelize,
       }
     );
+    return this;
   }
 }
 

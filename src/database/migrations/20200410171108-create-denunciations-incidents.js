@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('denunciations_incident', {
+    return queryInterface.createTable('denunciations_incidents', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -25,27 +25,27 @@ module.exports = {
         },
         onUpdate: 'SET NULL',
         onDelete: 'CASCADE',
-        allowNull: false,
+        allowNull: true,
       },
       incident: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'incident',
+          model: 'incidents',
           key: 'id',
         },
         onUpdate: 'SET NULL',
         onDelete: 'CASCADE',
-        allowNull: false,
+        allowNull: true,
       },
       address: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'address',
+          model: 'addresses',
           key: 'id',
         },
         onUpdate: 'SET NULL',
         onDelete: 'CASCADE',
-        allowNull: false,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -59,6 +59,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('denunciations_incident');
+    return queryInterface.dropTable('denunciations_incidents');
   },
 };

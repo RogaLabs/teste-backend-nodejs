@@ -15,6 +15,7 @@ class Address extends Model {
         sequelize,
       }
     );
+    return this;
   }
 }
 
