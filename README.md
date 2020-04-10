@@ -48,19 +48,13 @@ Refatorei boa parte das funcionalidades na tentativa de me aproximar o máximo p
 
 ### Tecnologias utilizadas
 
-# [checkbox:checked] express
-
-# [checkbox:checked] nodemon
-
-# [checkbox:checked] axios
-
-# [checkbox:checked] dotenv
-
-# [checkbox:checked] knex
-
-# [checkbox:checked] sqlite3
-
-# [checkbox:checked] cors
+- [x] express
+- [x] nodemon
+- [x] axios
+- [x] dotenv
+- [x] knex
+- [x] sqlite3
+- [x] cors
 
 Fiz dentro das minhas limitações, talvez não seja a melhor solução mas está funcional isso eu garanto.
 
