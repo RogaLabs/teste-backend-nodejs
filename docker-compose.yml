@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+  database:
+    image: postgres:12-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=teste_backend
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=desafionodejs
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./db:/var/lib/postgresql
