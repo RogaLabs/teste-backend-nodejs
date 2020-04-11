@@ -9,11 +9,11 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
+      nome: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      cpf_number: {
+      cpf: {
         type: Sequelize.STRING,
         allowNull: false,
       },

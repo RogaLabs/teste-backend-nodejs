@@ -9,11 +9,11 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      title: {
+      titulo: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      description: {
+      descricao: {
         type: Sequelize.TEXT,
         allowNull: false,
       },

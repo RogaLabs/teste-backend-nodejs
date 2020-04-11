@@ -4,8 +4,8 @@ class Incident extends Model {
   static init(sequelize) {
     super.init(
       {
-        title: Sequelize.STRING,
-        description: Sequelize.TEXT,
+        titulo: Sequelize.STRING,
+        descricao: Sequelize.TEXT,
       },
       {
         sequelize,

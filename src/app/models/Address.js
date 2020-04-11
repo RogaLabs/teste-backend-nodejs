@@ -4,12 +4,12 @@ class Address extends Model {
   static init(sequelize) {
     super.init(
       {
-        complement: Sequelize.STRING,
-        district: Sequelize.STRING,
-        city: Sequelize.STRING,
-        state: Sequelize.STRING,
-        country: Sequelize.STRING,
-        zip_code: Sequelize.STRING,
+        logradouro: Sequelize.STRING,
+        bairro: Sequelize.STRING,
+        cidade: Sequelize.STRING,
+        estado: Sequelize.STRING,
+        pais: Sequelize.STRING,
+        cep: Sequelize.STRING,
       },
       {
         sequelize,

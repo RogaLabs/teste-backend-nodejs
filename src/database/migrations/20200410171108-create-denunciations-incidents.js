@@ -17,35 +17,33 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: false,
       },
-      denunciant: {
+      denunciante: {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id',
         },
-        onUpdate: 'SET NULL',
         onDelete: 'CASCADE',
-        allowNull: true,
+        allowNull: false,
       },
-      incident: {
+      denuncia: {
         type: Sequelize.INTEGER,
         references: {
           model: 'incidents',
           key: 'id',
         },
-        onUpdate: 'SET NULL',
+
         onDelete: 'CASCADE',
-        allowNull: true,
+        allowNull: false,
       },
-      address: {
+      endereco: {
         type: Sequelize.INTEGER,
         references: {
           model: 'addresses',
           key: 'id',
         },
-        onUpdate: 'SET NULL',
         onDelete: 'CASCADE',
-        allowNull: true,
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,

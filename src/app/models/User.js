@@ -4,8 +4,8 @@ class User extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequelize.STRING,
-        cpf_number: Sequelize.STRING,
+        nome: Sequelize.STRING,
+        cpf: Sequelize.STRING,
       },
       {
         sequelize,

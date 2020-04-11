@@ -9,24 +9,24 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      complement: {
+      logradouro: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      district: Sequelize.STRING,
-      city: {
+      bairro: Sequelize.STRING,
+      cidade: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      state: {
+      estado: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      country: {
+      pais: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      zip_code: {
+      cep: {
         type: Sequelize.STRING,
         allowNull: false,
       },
