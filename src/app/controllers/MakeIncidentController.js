@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-
+import { PrismaClient } from '@prisma/client';
 
 class MakeIncidentController {
   async index(req, res) {
@@ -7,37 +7,102 @@ class MakeIncidentController {
   }
 
   async store(req, res) {
-    const schema = yup.object().shape({
-      latitude: yup.number().required(),
-      longitude: yup.number().required(),
-      denunciante: yup.object().shape({
-        nome: yup.string().required(),
-        cpf: yup.string().required(),
-      }),
-      denuncia: yup.object().shape({
-        titulo: yup.string().required(),
-        descricao: yup.string().required(),
-      }),
-      endereco: yup.object().shape({
-        logradouro: yup.string().required(),
-        bairro: yup.string(),
-        cidade: yup.string().required(),
-        estado: yup.string().required(),
-        pais: yup.string().required(),
-        cep: yup.string().required(),
-      }),
-    }); //valida req.body
+    try {
+      const schema = yup.object().shape({
+        latitude: yup.number().required(),
+        longitude: yup.number().required(),
+        denunciante: yup.object().shape({
+          nome: yup.string().required(),
+          cpf: yup.string().required(),
+        }),
+        denuncia: yup.object().shape({
+          titulo: yup.string().required(),
+          descricao: yup.string().required(),
+        }),
+        endereco: yup.object().shape({
+          logradouro: yup.string().required(),
+          bairro: yup.string(),
+          cidade: yup.string().required(),
+          estado: yup.string().required(),
+          pais: yup.string().required(),
+          cep: yup.string().required(),
+        }),
+      }); //valida req.body
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({
-        error: 'Validation fails',
-      });
-    }
-    let { latitude, longitude, denunciante, denuncia, endereco } = req.body;
+      if (!(await schema.isValid(req.body))) {
+        return res.status(400).json({
+          error: 'Validation fails',
+        });
+      }
+      let { latitude, longitude, denunciante, denuncia, endereco } = req.body;
 
+      try {
+        const connection = new PrismaClient();
+        let data = await connection.incidentUsers.create({
+          data: {
+            latitude,
+            longitude,
+            User: {
+              create: denunciante,
+            },
+            Incident: {
+              create: denuncia,
+            },
+            Address: {
+              create: endereco,
+            },
+          },
 
-    
-      return res.json({ data:null });
+          select: {
+            id: true,
+            latitude: true,
+            longitude: true,
+            User: {
+              select: {
+                nome: true,
+                cpf: true,
+              },
+            },
+            Incident: {
+              select: {
+                titulo: true,
+                descricao: true,
+              },
+            },
+            Address: {
+              select: {
+                logradouro: true,
+                bairro: true,
+                cidade: true,
+                estado: true,
+                pais: true,
+                cep: true,
+              },
+            },
+          },
+        });
+        const {
+          id,
+          latitude: latDenuncia,
+          longitude: longDenuncia,
+          User,
+          Incident,
+          Address,
+        } = data;
+        data = {
+          id,
+          latitude: latDenuncia,
+          longitude: longDenuncia,
+          denunciante: User,
+          denuncia: Incident,
+          endereco: Address,
+        };
+
+        return res.json({ data });
+      } catch (err) {
+        console.log('err', err);
+        return res.json({ err });
+      }
     } catch (err) {
       return res.json({ err });
     }

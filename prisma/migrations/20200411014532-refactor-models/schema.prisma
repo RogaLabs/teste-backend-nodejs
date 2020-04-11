@@ -1,0 +1,44 @@
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id   Int    @default(autoincrement()) @id
+  nome String
+  cpf  String
+}
+
+model Incident {
+  id        Int    @default(autoincrement()) @id
+  titulo    String
+  descricao String
+
+  @@index([titulo, descricao])
+}
+
+model Address {
+  id         Int     @default(autoincrement()) @id
+  logradouro String
+  bairro     String?
+  cidade     String
+  estado     String
+  pais       String
+  cep        String
+}
+
+model IncidentUsers {
+  id            Int      @default(autoincrement()) @id
+  latitude      Float
+  longitude     Float
+  denuncianteId Int
+  denunciaId    Int
+  enderecoId    Int
+  denunciante   User     @relation(fields: [denuncianteId], references: [id])
+  denuncia      Incident @relation(fields: [denunciaId], references: [id])
+  endereco      Address  @relation(fields: [enderecoId], references: [id])
+}
