@@ -12,3 +12,11 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - ./db:/var/lib/postgresql
+
+  redis:
+    image: redis:5.0.8-alpine
+    ports:
+      - 6379:6379
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - ./redis:/data
