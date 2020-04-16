@@ -4,8 +4,9 @@ import redisConfig from '../config/redis';
 
 import setAddress from '../app/jobs/SetAddress';
 import getAddress from '../app/jobs/GetAddress';
+import SaveDataInDB from '../app/jobs/SaveDataInDB';
 
-const jobs = [setAddress, getAddress];
+const jobs = [setAddress, getAddress, SaveDataInDB];
 
 class Queue {
   constructor() {

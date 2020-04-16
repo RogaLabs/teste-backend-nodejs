@@ -3,11 +3,9 @@ import { PrismaClient } from '@prisma/client';
 
 import setAddressJob from '../jobs/SetAddress';
 import getAddressJob from '../jobs/GetAddress';
+import SaveDataInDB from '../jobs/SaveDataInDB';
 
 import Queue from '../../lib/Queue';
-import apiMapConfig from '../../config/mapquest';
-
-import { reverseGeoCoding } from '../../utils/AccessGeolocation';
 
 class MakeIncidentController {
   async index(req, res) {
@@ -15,7 +13,6 @@ class MakeIncidentController {
   }
 
   async store(req, res) {
-    const { accessGeolocation } = accessGeolocation;
     try {
       const schema = yup.object().shape({
         latitude: yup.number().required(),
@@ -53,90 +50,116 @@ class MakeIncidentController {
       });
 
       getAddressQueue.on('succeeded', async (data) => {
-        const endereco = JSON.parse(data);
-
+        let endereco = JSON.parse(data);
+        console.log(endereco);
         if (!endereco) {
-          console.log(reverseGeoCoding);
-          const enderecoApi = await accessGeolocation(latitude, longitude);
-          console.log(enderecoApi);
-          // await Queue.add(setAddressJob.key, {
-          //   address,
-          // });
+          const setAddressQueue = await Queue.add(setAddressJob.key, {
+            address,
+          });
+
+          setAddressQueue.on('succeeded', async (data) => {
+            endereco = JSON.parse(data);
+            console.log('enderecoSet', endereco);
+            const dataSaveDB = await Queue.add(SaveDataInDB.key, {
+              latitude,
+              longitude,
+              denunciante,
+              denuncia,
+              endereco,
+            });
+            dataSaveDB.on('succeeded', (dataJson) => {
+              const data = JSON.parse(dataJson);
+              console.log('data', data);
+              return res.json({ data });
+            });
+          });
         } else {
-          console.log(endereco);
+          console.log('enderecoGet', endereco);
+
+          const dataSaveDB = await Queue.add(SaveDataInDB.key, {
+            latitude,
+            longitude,
+            denunciante,
+            denuncia,
+            endereco,
+          });
+          dataSaveDB.on('succeeded', (dataJson) => {
+            const data = JSON.parse(dataJson);
+            console.log('data', data);
+            return res.json({ data });
+          });
         }
       });
 
-      try {
-        const connection = new PrismaClient();
-        const data = null;
-        // let data = await connection.incidentUsers.create({
-        //   data: {
-        //     latitude,
-        //     longitude,
-        //     User: {
-        //       create: denunciante,
-        //     },
-        //     Incident: {
-        //       create: denuncia,
-        //     },
-        //     Address: {
-        //       create: endereco,
-        //     },
-        //   },
+      // try {
+      //   const connection = new PrismaClient();
+      //   let data = await connection.incidentUsers.create({
+      //     data: {
+      //       latitude,
+      //       longitude,
+      //       User: {
+      //         create: denunciante,
+      //       },
+      //       Incident: {
+      //         create: denuncia,
+      //       },
+      //       Address: {
+      //         create: endereco,
+      //       },
+      //     },
 
-        //   select: {
-        //     id: true,
-        //     latitude: true,
-        //     longitude: true,
-        //     User: {
-        //       select: {
-        //         nome: true,
-        //         cpf: true,
-        //       },
-        //     },
-        //     Incident: {
-        //       select: {
-        //         titulo: true,
-        //         descricao: true,
-        //       },
-        //     },
-        //     Address: {
-        //       select: {
-        //         logradouro: true,
-        //         bairro: true,
-        //         cidade: true,
-        //         estado: true,
-        //         pais: true,
-        //         cep: true,
-        //       },
-        //     },
-        //   },
-        // });
+      //     select: {
+      //       id: true,
+      //       latitude: true,
+      //       longitude: true,
+      //       User: {
+      //         select: {
+      //           nome: true,
+      //           cpf: true,
+      //         },
+      //       },
+      //       Incident: {
+      //         select: {
+      //           titulo: true,
+      //           descricao: true,
+      //         },
+      //       },
+      //       Address: {
+      //         select: {
+      //           logradouro: true,
+      //           bairro: true,
+      //           cidade: true,
+      //           estado: true,
+      //           pais: true,
+      //           cep: true,
+      //         },
+      //       },
+      //     },
+      //   });
 
-        // const {
-        //   id,
-        //   latitude: latDenuncia,
-        //   longitude: longDenuncia,
-        //   User,
-        //   Incident,
-        //   Address,
-        // } = data;
+      //   const {
+      //     id,
+      //     latitude: latDenuncia,
+      //     longitude: longDenuncia,
+      //     User,
+      //     Incident,
+      //     Address,
+      //   } = data;
 
-        // data = {
-        //   id,
-        //   latitude: latDenuncia,
-        //   longitude: longDenuncia,
-        //   denunciante: User,
-        //   denuncia: Incident,
-        //   endereco: Address,
-        // };
+      //   data = {
+      //     id,
+      //     latitude: latDenuncia,
+      //     longitude: longDenuncia,
+      //     denunciante: User,
+      //     denuncia: Incident,
+      //     endereco: Address,
+      //   };
 
-        return res.json({ data });
-      } catch (err) {
-        console.log('err', err);
-        return res.json({ err });
-      }
+      // return res.json({ data: null });
+      // } catch (err) {
+      //   console.log('err', err);
+      //   return res.json({ err });
+      // }
     } catch (err) {
       return res.json({ err });
     }
