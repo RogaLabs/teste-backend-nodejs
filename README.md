@@ -147,7 +147,7 @@ _Request.body_
 }
 ```
 
-### O que esperamos
+### Intruçoes de Execução do Projeto
 
 - Instalar Docker, Docker-compose e o Yarn;
 - Executar o comando 'docker-compose up --build' para criar os containers e executar o projeto;
@@ -161,7 +161,7 @@ _Request.body_
 
 ---
 
-### Intruçoes de Execução do Projeto
+### O que esperamos 
 
 - Que o desafio seja feito em Node.js;
 - Que considere utilizar cache para consultas ao serviço de geolocalização;
