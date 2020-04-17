@@ -4,12 +4,12 @@ Seu desafio será desenvolver um serviço de denúncias e, como parte dele, vere
 
 ### Solução
 
-Implementar uma API REST ```[POST] /v1/denuncias``` para inserir novas denúncias.
+Implementar uma API REST `[POST] /v1/denuncias` para inserir novas denúncias.
 
-+ O serviço de denúncias deverá persistir no banco de dados todos os atributos recebidos no request, juntamente com os dados de endereço originários de uma api externa;
-+ O serviço de denúncia receberá a geolocalizacão a partir do request e deverá buscar os dados de endereço no seguinte serviço [https://developer.mapquest.com/documentation/geocoding-api/](https://developer.mapquest.com/documentation/geocoding-api/);
-+ Para saber como utilizar o referido serviço de geolocalização verifique [https://developer.mapquest.com/documentation/](https://developer.mapquest.com/documentation/) e [https://developer.mapquest.com/documentation/geocoding-api/](https://developer.mapquest.com/documentation/geocoding-api/);
-+ A API REST deverá retornar um erro caso o endereço não seja encontrado no serviço de geolocalização;
+- O serviço de denúncias deverá persistir no banco de dados todos os atributos recebidos no request, juntamente com os dados de endereço originários de uma api externa;
+- O serviço de denúncia receberá a geolocalizacão a partir do request e deverá buscar os dados de endereço no seguinte serviço [https://developer.mapquest.com/documentation/geocoding-api/](https://developer.mapquest.com/documentation/geocoding-api/);
+- Para saber como utilizar o referido serviço de geolocalização verifique [https://developer.mapquest.com/documentation/](https://developer.mapquest.com/documentation/) e [https://developer.mapquest.com/documentation/geocoding-api/](https://developer.mapquest.com/documentation/geocoding-api/);
+- A API REST deverá retornar um erro caso o endereço não seja encontrado no serviço de geolocalização;
 
 Considere as informações abaixo para desenvolver o teste.
 
@@ -77,7 +77,7 @@ _Response.body (error)_
 Estas são as sugestões de erros mapeados, porém fique livre para adicionar outros, caso identifique erros não mapeados.
 
 | Code | Message                                       |
-|------|-----------------------------------------------|
+| ---- | --------------------------------------------- |
 | 01   | Request inválido.                             |
 | 02   | Endereço não encontrado para essa localidade. |
 
@@ -149,12 +149,26 @@ _Request.body_
 
 ### O que esperamos
 
-+ Que o desafio seja feito em Node.js;
-+ Que considere utilizar cache para consultas ao serviço de geolocalização;
-+ TDD;
-+ Princípios SOLID;
-+ [12Factor](https://12factor.net/);
-+ Passo-a-passo de como rodar sua aplicação;
+- Instalar Docker, Docker-compose e o Yarn;
+- Executar o comando 'docker-compose up --build' para criar os containers e executar o projeto;
+- Após instalar os containers executar o comando 'prisma migrate up --experimental', para gerar as migrações no DB;
+- executar o comando 'prisma introspect', para parear as migrações do prisma com o banco migrado;
+- executar o comando 'prisma generate', para gerar o client do prisma;
+- yarn install no path do projeto;
+- Abrir 2 telas de terminais;
+- Executar comando 'yarn run dev' em uma tela de Terminal, para executar a aplicação da API;
+- Na outro Terminal executar o comando 'yarn run queue', para executar as filas no modo background;
+
+---
+
+### O que esperamos
+
+- Que o desafio seja feito em Node.js;
+- Que considere utilizar cache para consultas ao serviço de geolocalização;
+- TDD;
+- Princípios SOLID;
+- [12Factor](https://12factor.net/);
+- Passo-a-passo de como rodar sua aplicação;
 
 ---
 
