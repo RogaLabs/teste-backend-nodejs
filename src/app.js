@@ -2,6 +2,9 @@ import 'dotenv/config';
 
 import express from 'express';
 import routes from './routes';
+import appMiddleware from './app/middlewares/application';
+
+import './app/exceptions';
 
 class App {
   constructor() {
@@ -16,6 +19,7 @@ class App {
   }
 
   routes() {
+    this.server.use(appMiddleware);
     this.server.use(routes);
   }
 }

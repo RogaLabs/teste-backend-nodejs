@@ -1,5 +1,8 @@
 import axios from 'axios';
 import apiConfig from '../config/mapquest';
+import handlers from '../app/exceptions/handlers';
+
+const { HandlerAPIGeolocation } = handlers;
 
 class ApiGeolocation {
   constructor() {
@@ -51,7 +54,7 @@ class ApiGeolocation {
 
       return endereco;
     } catch (err) {
-      console.log('API', err);
+      return HandlerAPIGeolocation;
     }
   }
 }

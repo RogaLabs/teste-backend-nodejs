@@ -5,13 +5,12 @@ import setAddressJob from '../jobs/SetAddress';
 import getAddressJob from '../jobs/GetAddress';
 import SaveDataInDB from '../jobs/SaveDataInDB';
 
+import handlers from '../exceptions/handlers';
+const { HandlerData, returnErrorResponse } = handlers;
+
 import Queue from '../../lib/Queue';
 
 class MakeIncidentController {
-  async index(req, res) {
-    return res.json({ message: 'HelloWorld' });
-  }
-
   async store(req, res) {
     try {
       const schema = yup.object().shape({
@@ -25,21 +24,11 @@ class MakeIncidentController {
           titulo: yup.string().required(),
           descricao: yup.string().required(),
         }),
-      }); //valida req.body
-
-      // endereco: yup.object().shape({
-      //     logradouro: yup.string().required(),
-      //     bairro: yup.string(),
-      //     cidade: yup.string().required(),
-      //     estado: yup.string().required(),
-      //     pais: yup.string().required(),
-      //     cep: yup.string().required(),
-      //   }),
+      });
 
       if (!(await schema.isValid(req.body))) {
-        return res.status(400).json({
-          error: 'Validation fails',
-        });
+        const { error } = HandlerData;
+        throw error;
       }
 
       const { latitude, longitude, denunciante, denuncia } = req.body;
@@ -50,16 +39,57 @@ class MakeIncidentController {
       });
 
       getAddressQueue.on('succeeded', async (data) => {
-        let endereco = JSON.parse(data);
-        console.log(endereco);
-        if (!endereco) {
-          const setAddressQueue = await Queue.add(setAddressJob.key, {
-            address,
-          });
+        try {
+          let endereco = JSON.parse(data);
+          console.log(endereco);
+          if (endereco && endereco.hasOwnProperty('message')) {
+            const error = endereco;
+            throw error;
+          }
 
-          setAddressQueue.on('succeeded', async (data) => {
-            endereco = JSON.parse(data);
-            console.log('enderecoSet', endereco);
+          if (!endereco) {
+            const setAddressQueue = await Queue.add(setAddressJob.key, {
+              address,
+            });
+
+            setAddressQueue.on('succeeded', async (data) => {
+              try {
+                //SET
+                endereco = JSON.parse(data);
+
+                if (endereco.hasOwnProperty('message')) {
+                  const error = endereco;
+                  throw error;
+                }
+
+                console.log('enderecoSet', endereco);
+                const dataSaveDB = await Queue.add(SaveDataInDB.key, {
+                  //SAVEDB1
+                  latitude,
+                  longitude,
+                  denunciante,
+                  denuncia,
+                  endereco,
+                });
+                dataSaveDB.on('succeeded', (dataJson) => {
+                  try {
+                    const data = JSON.parse(dataJson);
+                    if (data.hasOwnProperty('message')) {
+                      const error = endereco;
+                      throw error;
+                    }
+
+                    return res.json({ data });
+                  } catch (error) {
+                    returnErrorResponse(error, res);
+                  }
+                });
+              } catch (error) {
+                returnErrorResponse(error, res);
+              }
+            });
+          } else {
+            //SAVEDB2
             const dataSaveDB = await Queue.add(SaveDataInDB.key, {
               latitude,
               longitude,
@@ -67,101 +97,27 @@ class MakeIncidentController {
               denuncia,
               endereco,
             });
-            dataSaveDB.on('succeeded', (dataJson) => {
-              const data = JSON.parse(dataJson);
-              console.log('data', data);
-              return res.json({ data });
-            });
-          });
-        } else {
-          console.log('enderecoGet', endereco);
 
-          const dataSaveDB = await Queue.add(SaveDataInDB.key, {
-            latitude,
-            longitude,
-            denunciante,
-            denuncia,
-            endereco,
-          });
-          dataSaveDB.on('succeeded', (dataJson) => {
-            const data = JSON.parse(dataJson);
-            console.log('data', data);
-            return res.json({ data });
-          });
+            dataSaveDB.on('succeeded', (dataJson) => {
+              try {
+                const data = JSON.parse(dataJson);
+                if (data.hasOwnProperty('message')) {
+                  const error = endereco;
+                  throw error;
+                }
+
+                return res.json({ data });
+              } catch (error) {
+                returnErrorResponse(error, res);
+              }
+            });
+          }
+        } catch (error) {
+          returnErrorResponse(error, res);
         }
       });
-
-      // try {
-      //   const connection = new PrismaClient();
-      //   let data = await connection.incidentUsers.create({
-      //     data: {
-      //       latitude,
-      //       longitude,
-      //       User: {
-      //         create: denunciante,
-      //       },
-      //       Incident: {
-      //         create: denuncia,
-      //       },
-      //       Address: {
-      //         create: endereco,
-      //       },
-      //     },
-
-      //     select: {
-      //       id: true,
-      //       latitude: true,
-      //       longitude: true,
-      //       User: {
-      //         select: {
-      //           nome: true,
-      //           cpf: true,
-      //         },
-      //       },
-      //       Incident: {
-      //         select: {
-      //           titulo: true,
-      //           descricao: true,
-      //         },
-      //       },
-      //       Address: {
-      //         select: {
-      //           logradouro: true,
-      //           bairro: true,
-      //           cidade: true,
-      //           estado: true,
-      //           pais: true,
-      //           cep: true,
-      //         },
-      //       },
-      //     },
-      //   });
-
-      //   const {
-      //     id,
-      //     latitude: latDenuncia,
-      //     longitude: longDenuncia,
-      //     User,
-      //     Incident,
-      //     Address,
-      //   } = data;
-
-      //   data = {
-      //     id,
-      //     latitude: latDenuncia,
-      //     longitude: longDenuncia,
-      //     denunciante: User,
-      //     denuncia: Incident,
-      //     endereco: Address,
-      //   };
-
-      // return res.json({ data: null });
-      // } catch (err) {
-      //   console.log('err', err);
-      //   return res.json({ err });
-      // }
-    } catch (err) {
-      return res.json({ err });
+    } catch (error) {
+      returnErrorResponse(error, res);
     }
   }
 }
