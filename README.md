@@ -33,7 +33,7 @@ curl -X POST \
 }'
 ```
 
-_Request.body_
+_Response.body_
 
 ```
 {
@@ -85,7 +85,7 @@ Estas são as sugestões de erros mapeados, porém fique livre para adicionar ou
 
 Este é um exemplo do retorno do request à API de geolocação. Estado, cidade e país são dados obrigatórios na composição do endereço. Os demais campos deverão ficar em branco caso não seja retornado dados para os mesmos.
 
-_Request.body_
+_Response.body_
 
 ```
 {
