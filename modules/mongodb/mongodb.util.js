@@ -22,19 +22,21 @@
 
 
 	function init(){
-
-		var connectionString = prepareConnectionString(mongodbConfig, {
-			promiseLIb: require('bluebird'),
-			useNewUrlParser: true
-		})
+		const options = {
+			promiseLibrary: require('bluebird'),
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		}
+		var connectionString = prepareConnectionString(mongodbConfig, options)
+		mongoose.connect(connectionString, options)
 			.then(result => {
-				console.log('MongoDB conectado. DB: ' + connectionString)
+				console.log('MongoDB conectado.' + connectionString)
 			})
 			.catch(err => {
 				console.log(err.message)
-				console.log('Ocorreu um erro ao conectar com o Banco de dados: ' + connectionString)
+				console.log('Ocorreu um erro ao conectar com o banco de dados: ' + connectionString)
 			})
 
-		mongoose.connect(connectionString, options)
+		
 	}
 })();
