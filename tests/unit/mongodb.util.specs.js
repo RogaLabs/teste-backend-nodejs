@@ -4,7 +4,7 @@ var MongoDBUtil = require('../../modules/mongodb/mongodb.module').MongoDBUtil
 
 // usando o mocha
 describe('Arquivo mongodb.util', () => {
-	it('deve confirmar que o arquivo mongodb.util existe', () => {
+	it('deve confirmar que MondoDB.module retorna MongoDBUtil', () => {
 		expect(MongoDBUtil).to.be.a('object')
 	})
 })
