@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app",
     "dev": "nodemon app",
-    "test": "mocha --recursive ./tests --watch ./modules"
+    "test": "mocha --recursive ./tests/unit --watch ./modules"
   },
   "repository": {
     "type": "git",
