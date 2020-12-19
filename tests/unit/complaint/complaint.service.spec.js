@@ -25,4 +25,12 @@ describe('ComplaintService', () => {
 		mongoose.modelSchemas = {}
 		return mongoose.connection.close()
 	})
+
+	describe('createComplaint', () => {
+		var newComplaint, expectedCreatedComplaint, expectedError
+		it('deve criar uma nova denuncia', () => {
+
+		})
+	})
+
 })
