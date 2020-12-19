@@ -13,6 +13,6 @@ describe('ComplaintModule', () => {
 	})
 
 	it('deve confirmar se a função ComplaintController xiste', () => {
-		expect(ComplaintModule().ComplaintController, to.be.a('function'))
+		expect(ComplaintModule().ComplaintController).to.be.a('function')
 	})
 })

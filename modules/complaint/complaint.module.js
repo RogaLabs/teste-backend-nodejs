@@ -4,7 +4,9 @@
 		module.exports = init
 
 		function init() {
-			return {}
+			return {
+				ComplaintController: require('./complaint.controller')
+			}
 		}
 	}
 )()
