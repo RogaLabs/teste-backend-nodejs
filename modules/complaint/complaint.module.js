@@ -6,7 +6,9 @@
 		function init() {
 			return {
 				ComplaintController: require('./complaint.controller'),
-				ComplaintMiddleware: require('./complaint.middleware')
+				ComplaintMiddleware: require('./complaint.middleware'),
+				ComplaintService: require('./complaint.service'),
+				ComplaintModel: require('./complaint.model')
 			}
 		}
 	}
