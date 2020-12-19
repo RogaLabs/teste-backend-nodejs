@@ -4,7 +4,7 @@
 		module.exports = init
 
 		function init() {
-			
+			return {}
 		}
 	}
 )()
