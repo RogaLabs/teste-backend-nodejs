@@ -4,6 +4,8 @@
   "description": "Seu desafio será desenvolver um serviço de denúncias e, como parte dele, veremos como você estrutura as camadas de aplicação, chamadas externas, variáveis de ambiente, cache, testes unitários, logs e documentação.",
   "main": "index.js",
   "scripts": {
+    "start": "node app",
+    "dev": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,8 +25,10 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "~4.16.1",
     "mongoose": "^5.11.8",
-    "morgan": "^1.10.0"
+    "morgan": "~1.9.1",
+    "debug": "~2.6.9",
+    "http-errors": "~1.6.3"
   }
 }
