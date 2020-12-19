@@ -1,6 +1,12 @@
 /* importar o módulo do framework express */
 var express = require('express');
 var app = express();
+var logger = require('morgan');
+
+
+app.use(logger('dev'))
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 /* middleware que configura páginas de status */
 app.use(function(req, res, next){
