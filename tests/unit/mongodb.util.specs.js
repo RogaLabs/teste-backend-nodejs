@@ -1,11 +1,10 @@
 var chai = require('chai')
 var expect = chai.expect
-
-var MongoDBUtil = require('../../modules/mongodb/mongodb.util')
+var MongoDBModule = require('../../modules/mongodb/mongodb.module')
 
 // usando o mocha
 describe('Arquivo mongodb.util', () => {
-	it('deve testar o primeiro comportamento', () => {
-		// escreva o que espera para o comportamento
+	it('deve confirmar que o arquivo mongodb.util existe', () => {
+		expect(MongoDBModule.MongoDBUtil).to.be.a('object')
 	})
 })

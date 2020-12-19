@@ -4,7 +4,7 @@ var MongoDBModule = require('../../modules/mongodb/mongodb.module')
 
 // usando o mocha
 describe('Arquivo mongodb.module', () => {
-	it('deve testar o primeiro comportamento', () => {
-		// escreva o que espera para o comportamento
+	it('deve confirmar que o arquivo mongodb.module existe', () => {
+		expect(MongoDBModule).to.be.a('object')
 	})
 })
