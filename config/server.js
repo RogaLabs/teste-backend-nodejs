@@ -1,7 +1,7 @@
 /* importar o módulo do framework express */
-var express = require('express');
-var app = express();
-var logger = require('morgan');
+var express = require('express')
+var app = express()
+var logger = require('morgan')
 
 
 app.use(logger('dev'))
@@ -13,18 +13,18 @@ app.use(function(req, res, next){
 	res.json({
 		message: res.locals.message,
 		error: res.locals.error
-	});
-	next();
-});
+	})
+	next()
+})
 
 /* middleware que configura msgs de erro internos */
 app.use(function(err, req, res, next){
 	 res.json({
 			message: res.locals.message,
 			error: res.locals.error
-		});
-	next();
-});
+		})
+	next()
+})
 
 /* exportar o objeto app */
-module.exports = app;
+module.exports = app
