@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/fabioprogramadorti/teste-backend-nodejs/issues"
   },
-  "homepage": "https://github.com/fabioprogramadorti/teste-backend-nodejs#readme"
+  "homepage": "https://github.com/fabioprogramadorti/teste-backend-nodejs#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "sinon": "^9.2.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.8"
+  }
 }
