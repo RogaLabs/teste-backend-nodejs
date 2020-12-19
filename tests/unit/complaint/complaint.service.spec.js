@@ -29,7 +29,12 @@ describe('ComplaintService', () => {
 	describe('createComplaint', () => {
 		var newComplaint, expectedCreatedComplaint, expectedError
 		it('deve criar uma nova denuncia', () => {
+			newComplaint = ComplaintFixture.newComplaint
+			expectedCreatedComplaint = ComplaintFixture.createdComplaint
 
+			ComplaintModelMock.expects('create')
+				.withArgs(newComplaint)
+				.resolves(expectedCreatedComplaint)
 		})
 	})
 
