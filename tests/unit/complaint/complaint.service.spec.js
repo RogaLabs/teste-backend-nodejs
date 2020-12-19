@@ -18,4 +18,11 @@ describe('ComplaintService', () => {
 	beforeEach(() => {
 		ComplaintModelMock = sinon.mock(ComplaintModel)
 	})
+
+	afterEach(() => {
+		ComplaintModelMock.restore()
+		mongoose.models = {}
+		mongoose.modelSchemas = {}
+		return mongoose.connection.close()
+	})
 })
