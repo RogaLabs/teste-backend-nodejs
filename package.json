@@ -1,0 +1,19 @@
+{
+  "name": "teste-backend-nodejs",
+  "version": "1.0.0",
+  "description": "Seu desafio será desenvolver um serviço de denúncias e, como parte dele, veremos como você estrutura as camadas de aplicação, chamadas externas, variáveis de ambiente, cache, testes unitários, logs e documentação.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabioprogramadorti/teste-backend-nodejs.git"
+  },
+  "author": "Fabio Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fabioprogramadorti/teste-backend-nodejs/issues"
+  },
+  "homepage": "https://github.com/fabioprogramadorti/teste-backend-nodejs#readme"
+}
