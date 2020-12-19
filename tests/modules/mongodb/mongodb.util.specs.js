@@ -1,6 +1,6 @@
 var chai = require('chai')
 var expect = chai.expect
-var MongoDBUtil = require('../../modules/mongodb/mongodb.module').MongoDBUtil
+var MongoDBUtil = require('../../../modules/mongodb/mongodb.module').MongoDBUtil
 
 // usando o mocha
 describe('Arquivo mongodb.util', () => {
