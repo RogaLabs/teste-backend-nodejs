@@ -15,4 +15,7 @@ describe('ComplaintModule', () => {
 	it('deve confirmar se a função ComplaintController xiste', () => {
 		expect(ComplaintModule().ComplaintController).to.be.a('function')
 	})
+	it('deve confirmar se a função ComplaintMiddleware xiste', () => {
+		expect(ComplaintModule().ComplaintMiddleware).to.be.a('object')
+	})
 })

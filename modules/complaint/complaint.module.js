@@ -5,7 +5,8 @@
 
 		function init() {
 			return {
-				ComplaintController: require('./complaint.controller')
+				ComplaintController: require('./complaint.controller'),
+				ComplaintMiddleware: require('./complaint.middleware')
 			}
 		}
 	}
