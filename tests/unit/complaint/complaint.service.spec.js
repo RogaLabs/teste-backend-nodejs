@@ -45,7 +45,7 @@ describe('ComplaintService', () => {
 
 		})
 
-		it('deve lançar o erro de requisição na criação da denúncia', () => {
+		it('deve lançar o erro na criação da denúncia', () => {
 			expectedError = ErrorFixture.errorUnknown
 			newComplaint = ComplaintFixture.newComplaint
 
