@@ -2,6 +2,11 @@
 	function() {
 		'use-strict'
 		
-		module.exports = {}
+		module.exports = {
+			createComplaint: createComplaint
+		}
+		function createComplaint(complaint){
+			
+		}
 	}
 )()

@@ -4,7 +4,7 @@ const sinon = require('sinon')
 
 const mongoose = require('mongoose')
 
-const ComplaintModule = require('../../../modules/complaint/complaint.module')
+const ComplaintModule = require('../../../modules/complaint/complaint.module')()
 const ComplaintModel = ComplaintModule.ComplaintModel
 const ComplaintService = ComplaintModule.ComplaintService
 
@@ -35,6 +35,13 @@ describe('ComplaintService', () => {
 			ComplaintModelMock.expects('create')
 				.withArgs(newComplaint)
 				.resolves(expectedCreatedComplaint)
+
+			return ComplaintService.createComplaint(newComplaint)
+				.then(data => {
+					ComplaintModelMock.verify()
+					expect(data).to.deep.equal(expectedCreatedComplaint)
+				})
+
 		})
 	})
 
