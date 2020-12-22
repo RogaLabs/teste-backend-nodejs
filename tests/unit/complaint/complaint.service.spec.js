@@ -28,6 +28,7 @@ describe('ComplaintService', () => {
 
 	describe('createComplaint', () => {
 		var newComplaint, expectedCreatedComplaint, expectedError
+
 		it('deve criar uma nova denuncia', () => {
 			newComplaint = ComplaintFixture.newComplaint
 			expectedCreatedComplaint = ComplaintFixture.createdComplaint
@@ -36,10 +37,10 @@ describe('ComplaintService', () => {
 				.withArgs(newComplaint)
 				.resolves(expectedCreatedComplaint)
 
-			return ComplaintService.createComplaint(newComplaint)
+			ComplaintService.createComplaint(newComplaint)
 				.then(data => {
 					ComplaintModelMock.verify()
-					expect(data).to.deep.equal(expectedCreatedComplaint)
+					expect(data).to.be.equal(expectedCreatedComplaint)
 				})
 
 		})
