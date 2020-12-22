@@ -37,13 +37,30 @@ describe('ComplaintService', () => {
 				.withArgs(newComplaint)
 				.resolves(expectedCreatedComplaint)
 
-			ComplaintService.createComplaint(newComplaint)
+			return ComplaintService.createComplaint(newComplaint)
 				.then(data => {
 					ComplaintModelMock.verify()
-					expect(data).to.be.equal(expectedCreatedComplaint)
+					expect(data).to.deep.equal(expectedCreatedComplaint)
 				})
 
 		})
+
+		it('deve lançar o erro de requisição na criação da denúncia', () => {
+			expectedError = ErrorFixture.errorUnknown
+			newComplaint = ComplaintFixture.newComplaint
+
+			ComplaintModelMock.expects('create')
+				.withArgs(newComplaint)
+				.rejects(expectedError)
+
+			return ComplaintService.createComplaint(newComplaint)
+				.catch(err => {
+					ComplaintModelMock.verify()
+					expect(err).to.deep.equal(expectedError)
+				})
+
+		})
+
 	})
 
 })
