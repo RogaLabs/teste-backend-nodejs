@@ -35,7 +35,24 @@ describe('ComplaintMiddleware', () => {
 			createComplaint.restore()
 		})
 
-		
+		it('deve criar uma nova denuncia', () => {
+			expectedCreatedComplaint = ComplaintFixture.createdComplaint
+			
+			createComplaintPromisse = Promisse.resolve(expectedCreatedComplaint)
+			createComplaint.withArgs(req.body).returns(createComplaintPromisse)
+
+			ComplaintMiddleware.addComplaint(req, res, next)
+
+			sinon.assert.callCount(createComplaint, 1)
+
+			return createComplaintPromisse
+				.then(() => {
+					expect(req.response).to.be.a('object')
+					expect(req.response).to.deep.equal(expectedCreatedComplaint)
+					sinon.assert.callCount(next, 1)
+				})
+
+		})
 
 	})
 	
