@@ -36,7 +36,7 @@ describe('ComplaintMiddleware', () => {
 		})
 
 		it('deve criar uma nova denuncia', () => {
-			expectedCreatedComplaint = ComplaintFixture.createdComplaint
+			expectedCreatedComplaint = ComplaintFixture.complaintJSONReturned
 			
 			createComplaintPromisse = Promisse.resolve(expectedCreatedComplaint)
 			createComplaint.withArgs(req.body).returns(createComplaintPromisse)
