@@ -54,6 +54,23 @@ describe('ComplaintMiddleware', () => {
 
 		})
 
+		it('deve lançar um erro enquanto cria uma nova denuncia', () => {
+			expectedError = ErrorFixture.errorUnknown
+
+			createComplaintPromisse = Promisse.reject(expectedError)
+			createComplaint.withArgs(req.body).returns(createComplaintPromisse)
+
+			ComplaintMiddleware.addComplaint(req, res, next)
+
+			sinon.assert.calledOnce(createComplaint)
+
+			return createComplaintPromisse.catch(err => {
+				expect(err).to.be.a('object')
+				expect(err).to.deep.equal(expectedError)
+				
+			})
+		})
+
 	})
 	
 })

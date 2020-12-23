@@ -13,6 +13,9 @@
 					req.response = data
 					next()
 				})
+				.catch(err => {
+					next(err)
+				})
 		}
 
 	}
