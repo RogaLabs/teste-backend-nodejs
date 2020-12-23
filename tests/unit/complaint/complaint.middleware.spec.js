@@ -23,5 +23,20 @@ describe('ComplaintMiddleware', () => {
 		next = sinon.spy()
 	})
 
+	describe('addComplaint', () => {
+		var createComplaint, createComplaintPromisse, expectedCreatedComplaint, expectedError
+
+		beforeEach(() => {
+			createComplaint = sinon.stub(ComplaintService, 'createComplaint')
+			req.body = ComplaintFixture.newComplaint
+		})
+
+		afterEach(() => {
+			createComplaint.restore()
+		})
+
+		
+
+	})
 	
 })
