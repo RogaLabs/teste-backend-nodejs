@@ -15,3 +15,13 @@ const ComplaintFixture = Fixtures.ComplaintFixture
 const ErrorFixture = Fixtures.ErrorFixture
 
 var req, res, next
+
+describe('ComplaintMiddleware', () => {
+	beforeEach(() => {
+		req = httpMocks.createRequest()
+		res = httpMocks.createResponse()
+		next = sinon.spy()
+	})
+
+	
+})
