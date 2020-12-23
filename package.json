@@ -20,6 +20,7 @@
   "homepage": "https://github.com/fabioprogramadorti/teste-backend-nodejs#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "mocha": "^8.2.1",
     "node-mocks-http": "^1.9.0",
     "sinon": "^9.2.2"
