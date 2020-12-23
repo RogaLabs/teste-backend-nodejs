@@ -29,7 +29,7 @@ describe('ComplaintService', () => {
 	describe('createComplaint', () => {
 		var newComplaint, expectedCreatedComplaint, expectedError
 
-		it('deve criar uma nova denuncia', () => {
+		it('deve criar uma nova denuncia', async () => {
 			newComplaint = ComplaintFixture.newComplaint
 			expectedCreatedComplaint = ComplaintFixture.createdComplaint
 
@@ -38,7 +38,7 @@ describe('ComplaintService', () => {
 				.resolves(expectedCreatedComplaint)
 
 			return ComplaintService.createComplaint(newComplaint)
-				.then(data => {
+				.then((data) => {
 					ComplaintModelMock.verify()
 					expect(data).to.deep.equal(expectedCreatedComplaint)
 				})

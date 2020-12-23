@@ -8,3 +8,5 @@ mongodbUtil.init()
 app.listen(port, function(){
 	console.log('Servidor online na porta ' + port)
 })
+
+module.exports = app
