@@ -36,7 +36,7 @@ describe('ComplaintMiddleware', () => {
 		})
 
 		it('deve criar uma nova denuncia', () => {
-			expectedCreatedComplaint = ComplaintFixture.complaintJSONReturned
+			expectedCreatedComplaint = ComplaintFixture.createdComplaint
 			
 			createComplaintPromisse = Promisse.resolve(expectedCreatedComplaint)
 			createComplaint.withArgs(req.body).returns(createComplaintPromisse)
@@ -47,8 +47,8 @@ describe('ComplaintMiddleware', () => {
 
 			return createComplaintPromisse
 				.then(() => {
-					expect(req.response).to.be.a('object')
-					expect(req.response).to.deep.equal(expectedCreatedComplaint)
+					expect(req.body).to.be.a('object')
+					expect(req.body).to.deep.equal(expectedCreatedComplaint)
 					sinon.assert.calledOnce(next)
 				})
 

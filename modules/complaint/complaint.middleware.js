@@ -12,12 +12,13 @@
 		async function addComplaint(req, res, next){
 			try {
 				var data = await ComplaintService.createComplaint(req.body)
-				data.endereco = await GeocodingService.getAddress(data.latitude, data.longitude)
+				req.addressInfo = await GeocodingService.getAddress(data.latitude, data.longitude)
 				req.response = data
+
 				next()
 				
 			} catch (error) {
-				next(err)
+				next(error)
 			}
 		}
 	}

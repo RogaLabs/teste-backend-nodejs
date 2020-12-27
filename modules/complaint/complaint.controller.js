@@ -5,8 +5,11 @@
 		const router = express.Router()
 		const ComplaintMiddleware = require('./complaint.module')().ComplaintMiddleware
 		router.post('/', ComplaintMiddleware.addComplaint, (req, res) => {
-			console.log(req.response)
-			res.status(201).json(req.response);
+			
+			var newComplaint = {}
+			newComplaint = {...req.response}['_doc']
+			newComplaint['endereco'] = req.addressInfo
+			res.status(201).json(newComplaint);
 		})
 
 		module.exports = router
