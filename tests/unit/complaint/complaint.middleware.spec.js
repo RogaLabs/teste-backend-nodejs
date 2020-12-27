@@ -47,8 +47,8 @@ describe('ComplaintMiddleware', () => {
 
 			return createComplaintPromisse
 				.then(() => {
-					expect(req.body).to.be.a('object')
-					expect(req.body).to.deep.equal(expectedCreatedComplaint)
+					expect(req.response).to.be.a('object')
+					expect(req.response).to.deep.equal(expectedCreatedComplaint)
 					sinon.assert.calledOnce(next)
 				})
 
