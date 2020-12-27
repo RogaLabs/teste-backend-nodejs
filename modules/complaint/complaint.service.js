@@ -7,8 +7,8 @@
 		}
 
 		const ComplaintModel = require('./complaint.module')().ComplaintModel
-		function createComplaint(complaint){
-			return ComplaintModel.create(complaint)
+		async function createComplaint(complaint){
+			return await ComplaintModel.create(complaint)
 		}
 	}
 )()

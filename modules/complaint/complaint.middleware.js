@@ -9,18 +9,15 @@
 		const ComplaintService = require('./complaint.module')().ComplaintService
 		const GeocodingService = require('../geocoding/geocoding.module')().GeocodingService
 
-		function addComplaint(req, res, next){
-			 ComplaintService.createComplaint(req.body)
-				.then(sucess)
-				.catch(err => {
-					next(err)
-				})
-
-			async function sucess(data) {
-				var address = GeocodingService.getAddress(data.latitude, data.longitude)
-				data.address = address
+		async function addComplaint(req, res, next){
+			try {
+				var data = await ComplaintService.createComplaint(req.body)
+				data.endereco = await GeocodingService.getAddress(data.latitude, data.longitude)
 				req.response = data
 				next()
+				
+			} catch (error) {
+				next(err)
 			}
 		}
 	}
