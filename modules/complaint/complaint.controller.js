@@ -5,7 +5,7 @@
 		const router = express.Router()
 		const ComplaintMiddleware = require('./complaint.module')().ComplaintMiddleware
 		router.post('/', ComplaintMiddleware.addComplaint, (req, res) => {
-			res.status(201).json({});
+			res.status(201).json(req.response);
 		})
 
 		module.exports = router

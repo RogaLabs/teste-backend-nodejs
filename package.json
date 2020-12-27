@@ -26,6 +26,7 @@
     "sinon": "^9.2.2"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
