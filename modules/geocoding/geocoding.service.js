@@ -6,9 +6,11 @@
 			getAddress: getAddress
 		}
 		const axios = require('axios')
-		const KEY = 'q1MGNhYBA22ILo2waAFn9jjrFfGeeBv2'
+		const geocodingConfig = require('../../config/geocoding/geocoding-config.json').geocoding
 		async function getAddress(latitude, longitude){
-			var url = `http://www.mapquestapi.com/geocoding/v1/reverse?key=${KEY}&location=${latitude},${longitude}`
+			var key = geocodingConfig.KEY
+			var baseUrl = geocodingConfig.BASE_URL
+			var url = `${baseUrl}/reverse?key=${key}&location=${latitude},${longitude}`
 
 			var apiResponse = axios.get(url).then(res => {
 				var addressInfo = res.data.results[0].locations[0]

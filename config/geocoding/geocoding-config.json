@@ -1,0 +1,6 @@
+{
+	"geocoding": {
+		"KEY": "q1MGNhYBA22ILo2waAFn9jjrFfGeeBv2",
+		"BASE_URL": "http://www.mapquestapi.com/geocoding/v1"
+	}
+}
