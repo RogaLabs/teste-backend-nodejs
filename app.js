@@ -1,31 +1,29 @@
-/* importar as configurações do servidor */
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var app = express()
 
-var mongodbUtil = require('./modules/mongodb/mongodb.module').MongoDBUtil
-const port = process.env.PORT || 3000
-const ComplaintController = require('./modules/complaint/complaint.module')().ComplaintController
+var app = express();
 
-mongodbUtil.init()
+var MongoDBUtil = require('./modules/mongodb/mongodb.module').MongoDBUtil;
+var ComplaintsController = require('./modules/complaint/complaint.module')().ComplaintController;
 
-app.use('/denuncias', ComplaintController)
+MongoDBUtil.init();
+
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.urlencoded({extended: false}))
 
-
+app.use('/denuncias', ComplaintsController)
 app.get('/', function (req, res) {
 	var pkg = require(path.join(__dirname, 'package.json'));
 	res.json({
-		name: pkg.name,
-		version: pkg.version,
-		status: 'up'
+			name: pkg.name,
+			version: pkg.version,
+			status: 'up'
 	});
 });
 
@@ -49,8 +47,4 @@ app.use(function (err, req, res, next) {
 	});
 });
 
-app.listen(port, function(){
-	console.log('Servidor online na porta ' + port)
-})
-
-module.exports = app
+module.exports = app;

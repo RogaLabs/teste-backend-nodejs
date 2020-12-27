@@ -21,8 +21,9 @@ describe('ComplaintController', () => {
 				.end((err, res) => {
 					expect(res.status).to.equal(201)
 					expect(res.body).to.not.equal({})
-					//expect(res.body._id).to.not.equal(undefined)
-					expect(res.body.endereco).to.deep.equal(ComplaintFixture.complaintJSONReturned.data.endereco)
+					expect(res.body).to.not.equal('')
+					expect(res.body._id).to.not.equal(undefined)
+					expect(res.body.endereco).to.deep.equal(ComplaintFixture.complaintJSONReturned.endereco)
 					done()
 				})
 		})
