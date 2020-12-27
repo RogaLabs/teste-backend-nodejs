@@ -43,13 +43,12 @@ describe('ComplaintMiddleware', () => {
 
 			ComplaintMiddleware.addComplaint(req, res, next)
 
-			sinon.assert.calledOnce(createComplaint)
+			sinon.assert.callCount(createComplaint, 1)
 
 			return createComplaintPromisse
-				.then(() => {
-					expect(req.response).to.be.a('object')
-					expect(req.response).to.deep.equal(expectedCreatedComplaint)
-					sinon.assert.calledOnce(next)
+				.then(middlawareResponse => {
+					expect({middlawareResponse}).to.be.a('object')
+					expect(middlawareResponse).to.deep.equal(expectedCreatedComplaint)
 				})
 
 		})
