@@ -2,7 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var morgan = require('morgan');
 
 var app = express();
 
@@ -11,8 +11,8 @@ var ComplaintsController = require('./modules/complaint/complaint.module')().Com
 
 MongoDBUtil.init();
 
-
-app.use(logger('dev'));
+app.use(morgan('tiny'));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
