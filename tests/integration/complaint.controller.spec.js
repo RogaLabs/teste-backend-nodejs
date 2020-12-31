@@ -9,7 +9,7 @@ const app = require('../../app');
 
 const ComplaintFixture = require('../fixtures/fixtures').ComplaintFixture
 
-const baseUri = '/denuncias'
+const baseUri = '/v1/denuncias'
 
 
 describe('ComplaintController', () => {

@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
 // root routes
-app.use('/denuncias', ComplaintsController)
+app.use('/v1/denuncias', ComplaintsController)
 
 app.get('/', function (req, res) {
 	var pkg = require(path.join(__dirname, 'package.json'));
