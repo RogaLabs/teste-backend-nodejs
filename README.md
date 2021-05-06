@@ -162,9 +162,9 @@ Ao finalizar, deverá ser enviado o link do repositório e do sistema em produç
 ### Avaliação
 Irá ser avaliado:
 
-Seu conhecimento técnico e criatividade;
-Sua habilidade para resolver problemas de forma simples e eficiente;
-Boas práticas de código.
++ Seu conhecimento técnico e criatividade;
++ Sua habilidade para resolver problemas de forma simples e eficiente;
++ Boas práticas de código.
 ---
 
 Boa sorte!
