@@ -156,6 +156,15 @@ _Response.body_
 + [12Factor](https://12factor.net/);
 + Passo-a-passo de como rodar sua aplicação;
 
+### Envio do teste
+Ao finalizar, deverá ser enviado o link do repositório e do sistema em produção, no caso de ter feito o deploy, pelo seguinte formulário: https://docs.google.com/forms/d/e/1FAIpQLSd0NyNX0HDmiuRFBbQGE5EyHhHF5abRoj78IDvkqh4VyKLA2A/viewform
+
+### Avaliação
+Irá ser avaliado:
+
+Seu conhecimento técnico e criatividade;
+Sua habilidade para resolver problemas de forma simples e eficiente;
+Boas práticas de código.
 ---
 
 Boa sorte!
